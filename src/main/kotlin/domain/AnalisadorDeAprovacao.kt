@@ -1,5 +1,8 @@
 package domain
 
+import domain.criterios.Basico
+import domain.criterios.CriterioDeAprovacao
+
 class AnalisadorDeAprovacao {
 
     // ---------------------------------
@@ -11,5 +14,14 @@ class AnalisadorDeAprovacao {
     //      'src/test/kotlin/domain/AnalisadorDeAprovacaoTest'
     //
     // ---------------------------------
+
+    private lateinit var meuCriterio : CriterioDeAprovacao;
+    fun defineCriterio(criterioDeAprovacao : CriterioDeAprovacao){
+        meuCriterio = criterioDeAprovacao;
+    }
+
+    fun fechaBoletim(boletim : Boletim) : BoletimFechado{
+        return BoletimFechado(boletim.mediaEPs, boletim.mediaMiniEPs, meuCriterio.mediaFinal(boletim), meuCriterio.estaAprovado(boletim));
+    }
 
 }
